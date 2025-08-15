@@ -22,7 +22,7 @@ class HistoryController extends Controller
             'viewed_at' => now(),
         ]);
 
-        $transaksi = Transaksi::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(perPage: 6);
+        $transaksi = Transaksi::where('user_id', Auth::user()->id)->whereIn('status_pembayaran', ['sudah dibayar', 'belum bayar'])->orderBy('created_at', 'DESC')->paginate(perPage: 12);
         $today = Carbon::today(); // Hanya tanggal hari ini (tanpa jam)
         $now = Carbon::now(); // Tanggal + jam saat ini
         // $transaksi = [];

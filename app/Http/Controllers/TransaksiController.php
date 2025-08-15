@@ -14,7 +14,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksi = Transaksi::filters(request(['date']))->get();
+        $transaksi = Transaksi::filters(request(['date']))->whereIn('status_pembayaran', ['sudah dibayar', 'belum bayar'])->get();
         $today = Carbon::today(); // Hanya tanggal hari ini (tanpa jam)
         $now = Carbon::now(); // Tanggal + jam saat ini
         return view("transaksi.index", compact("transaksi", 'today', 'now'));
