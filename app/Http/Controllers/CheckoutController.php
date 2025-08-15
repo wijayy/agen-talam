@@ -125,6 +125,18 @@ class CheckoutController extends Controller
      */
     public function destroy(Transaksi $checkout)
     {
-        //
+                try {
+            DB::beginTransaction();
+            $checkout->update(['status_pembayaran'=>'dibatalkan']);
+            DB::commit();
+            return back()->with('success', 'Transaksi berhasil dibatalkan');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            if (config('app.debug') == true) {
+                throw $th;
+            } else {
+                return back()->with('error', $th->getMessage());
+            }
+        }
     }
 }
