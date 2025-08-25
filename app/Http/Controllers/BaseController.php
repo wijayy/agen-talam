@@ -33,7 +33,7 @@ class BaseController extends Controller
             'name' => 'nullable|string',
             'email' => 'nullable|email',
             'pax' => 'required|integer',
-            'whatsapp' => 'required|string|starts_with:62',
+            'whatsapp' => 'required|string|doesnt_start_with:0',
             'address' => 'nullable|string',
             'date' => 'required',
         ]);
@@ -58,13 +58,15 @@ class BaseController extends Controller
         }
     }
 
-    public function config() {
+    public function config()
+    {
         $settings = Setting::all();
 
         return view('config', compact('settings'));
     }
-    
-    public function storeConfig(Request $request) {
+
+    public function storeConfig(Request $request)
+    {
         $validated = $request->validate([
             'harga' => 'required|integer',
             'alamat' => 'required|string',

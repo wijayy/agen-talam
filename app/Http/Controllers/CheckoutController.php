@@ -15,7 +15,9 @@ class CheckoutController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) {}
+    public function index(Request $request)
+    {
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +36,7 @@ class CheckoutController extends Controller
             'name' => 'nullable|string',
             'email' => 'nullable|email',
             'pax' => 'required|integer',
-            'whatsapp' => 'required|string|starts_with:62',
+            'whatsapp' => 'required|string|doesnt_start_with:0',
             'address' => 'nullable|string',
             'date' => 'required',
         ]);
@@ -46,7 +48,7 @@ class CheckoutController extends Controller
             $validated['user_id'] = Auth::user()->id;
             $validated['total'] = $validated['pax'] * Setting::where('key', 'harga')->value('value');
 
-            $transaksi =  Transaksi::create($validated);
+            $transaksi = Transaksi::create($validated);
             DB::commit();
 
             return redirect(route('checkout.show', ['checkout' => $transaksi->slug]));
@@ -66,7 +68,8 @@ class CheckoutController extends Controller
     public function show(Transaksi $checkout)
     {
 
-        if ($checkout->status_pembayaran != 'belum bayar') return redirect()->route('history.index')->with('success', "Transaksi $checkout->nomor_transaksi Sudah Dibayar!");
+        if ($checkout->status_pembayaran != 'belum bayar')
+            return redirect()->route('history.index')->with('success', "Transaksi $checkout->nomor_transaksi Sudah Dibayar!");
 
         // dd($checkout->nomor_transaksi);
         // Konfigurasi Midtrans
@@ -125,9 +128,9 @@ class CheckoutController extends Controller
      */
     public function destroy(Transaksi $checkout)
     {
-                try {
+        try {
             DB::beginTransaction();
-            $checkout->update(['status_pembayaran'=>'dibatalkan']);
+            $checkout->update(['status_pembayaran' => 'dibatalkan']);
             DB::commit();
             return back()->with('success', 'Transaksi berhasil dibatalkan');
         } catch (\Throwable $th) {

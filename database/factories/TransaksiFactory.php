@@ -26,7 +26,7 @@ class TransaksiFactory extends Factory
             'total' => $int * 500000,
             'address' => mt_rand(1, 10) > 8 ? fake()->address() : null,
             'date' => Carbon::now()->subDays(15)->addDays(rand(0, 30)),
-            'whatsapp' => '6287860947431'
+            'whatsapp' => fake()->phoneNumber()
         ];
     }
 }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Transaksi::class);
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Transaksi::class)->constrained();
             $table->integer('rate');
             $table->text('review');
             $table->boolean('show')->default(false);

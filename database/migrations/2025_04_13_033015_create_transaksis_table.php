@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('whatsapp');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
             $table->integer('pax');
             $table->date('date');
             $table->text('address')->nullable();
