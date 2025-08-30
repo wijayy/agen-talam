@@ -84,7 +84,7 @@ use App\Models\Setting;
                 class="text-mine-400">Agen Talam</span>!</h2>
 
         <ul class="list-disc list-inside text-inherit text-lg mb-4 space-y-2">
-            <li><strong>IDR {{ number_format(config('Tiket.harga'),0, ',', '.') }} per orang</strong> — sudah termasuk
+            <li><strong>IDR {{ number_format(Setting::where('key', 'harga')->value('value'),0, ',', '.') }} per orang</strong> — sudah termasuk
                 transport, makan siang, dan tiket masuk</li>
             <li><strong>Gratis penjemputan</strong> untuk area Singaraja</li>
             <li>Untuk peserta di luar Singaraja, wajib datang ke markas keberangkatan di <span

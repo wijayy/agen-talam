@@ -14,8 +14,6 @@
             <div class="">
                 <div class=" font-semibold">Links</div>
                 <div class=""><a href="{{ route('sk') }}">Syarat dan Ketentuan</a></div>
-
-button
             </div>
             <div class="">
                 <img class="w-1/2" src="{{ asset('assets/payment.png') }}" alt="Payment">
